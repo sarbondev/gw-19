@@ -3,6 +3,7 @@ import cors from "cors";
 import { config } from "dotenv";
 import mongoose from "mongoose";
 import { BlogRoutes } from "./routes/blog.routes.js";
+import { UserRoutes } from "./routes/user.routes.js";
 
 config();
 
@@ -15,6 +16,7 @@ const PORT = process.env.PORT || 3000;
 
 app.get("/", (_, res) => res.send("Welcome to my app"));
 app.use("/blogs", BlogRoutes);
+app.use("/users", UserRoutes);
 
 export const connectDB = async () => {
   try {
