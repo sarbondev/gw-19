@@ -2,6 +2,15 @@ import { User } from "../models/user.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+export const getAllUser = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export const register = async (req, res) => {
   try {
     const { phoneNumber, fullName, password } = req.body;
@@ -32,7 +41,9 @@ export const login = async (req, res) => {
     if (!isPassValid)
       return res.status(400).json({ message: "Wrong password" });
 
-    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "7d" });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_KEY, {
+      expiresIn: "7d",
+    });
 
     res.json({ status: "ok", token, user });
   } catch (error) {
