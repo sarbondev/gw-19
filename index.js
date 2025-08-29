@@ -2,6 +2,7 @@ import express, { json } from "express";
 import cors from "cors";
 import { config } from "dotenv";
 import mongoose from "mongoose";
+
 import { BlogRoutes } from "./routes/blog.routes.js";
 import { UserRoutes } from "./routes/user.routes.js";
 
